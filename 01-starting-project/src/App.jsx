@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 
 import { CORE_CONCEPTS } from './data.js';
 import Header from './components/Header/Header.jsx';
@@ -32,7 +32,7 @@ function App() {
   }
 
   return (
-    <div>
+    <>  {/* This eliminates the redundant <div> block displayed on the elements tab */}
       <Header />
       <main>
         <section id="core-concepts">
@@ -74,7 +74,7 @@ function App() {
           {tabContent}
         </section>
       </main>
-    </div>
+    </> // the empty tags are shorthand for <Fragment></Fragment> - it can be used in newer React projects
   );
 }
 
