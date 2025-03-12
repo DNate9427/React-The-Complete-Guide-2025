@@ -9,7 +9,7 @@ import { EXAMPLES } from './data.js';
 
 function App() {
   // the stateArray = the current data snapshot for this execution cycle, the state updating function
-  const [ selectedTopic, setSelectedTopic ] = useState('components');
+  const [selectedTopic, setSelectedTopic] = useState();
 
   function handleSelect(selectedButton) {
     setSelectedTopic(selectedButton);
@@ -18,53 +18,63 @@ function App() {
 
   console.log('APP COMPONENT EXECUTING');
 
+  let tabContent = <p>Please select a topic.</p>;
+
+  if (selectedTopic) {
+    tabContent = (
+      <div id='tab-content'>
+        <h3>{EXAMPLES[selectedTopic].title}</h3>
+        <p>{EXAMPLES[selectedTopic].description}</p>
+        <pre>
+          <code>
+            {EXAMPLES[selectedTopic].code}
+          </code>
+        </pre>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Header />
       <main>
         <section id="core-concepts">
-        <h2>Time to get started!</h2>
-        <ul>
-        <CoreConcept {...CORE_CONCEPTS[0]} />
-        <CoreConcept {...CORE_CONCEPTS[1]} />
-        <CoreConcept {...CORE_CONCEPTS[2]} />
-        <CoreConcept {...CORE_CONCEPTS[3]} />
-
-        {/* The more verbose alternative:
-          <CoreConcept 
-            title={CORE_CONCEPTS[1].title}
-            description={CORE_CONCEPTS[1].description}
-            image={CORE_CONCEPTS[1].image} 
-          />
-          <CoreConcept 
-            title={CORE_CONCEPTS[2].title}
-            description={CORE_CONCEPTS[2].description}
-            image={CORE_CONCEPTS[2].image} 
-          />
-          <CoreConcept 
-            title={CORE_CONCEPTS[3].title}
-            description={CORE_CONCEPTS[3].description}
-            image={CORE_CONCEPTS[3].image} 
-          /> */}
-        </ul>
+          <h2>Time to get started!</h2>
+          <ul>
+            {/* .map() is a method used to iterate over an array and apply a function to each element, 
+            returning a new array with the results. It does not modify the original array. */}
+            {CORE_CONCEPTS.map((conceptItem) => <CoreConcept key={conceptItem.title} {...conceptItem} />)}
+          </ul>
         </section>
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={() => handleSelect('components')}>Components</TabButton> {/*Components wrapping other components - "children" in this case - is called Component Composition*/}
-            <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
-            <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
-            <TabButton onSelect={() => handleSelect('state')}>State</TabButton>
+            <TabButton
+              isSelected={selectedTopic === 'components'}
+              onSelect={() => handleSelect('components')}
+            >
+              Components
+            </TabButton> {/*Components wrapping other components - "children" in this case - is called Component Composition*/}
+            <TabButton
+              isSelected={selectedTopic === 'jsx'}
+              onSelect={() => handleSelect('jsx')}
+            >
+              JSX
+            </TabButton>
+            <TabButton
+              isSelected={selectedTopic === 'props'}
+              onSelect={() => handleSelect('props')}
+            >
+              Props
+            </TabButton>
+            <TabButton
+              isSelected={selectedTopic === 'state'}
+              onSelect={() => handleSelect('state')}
+            >
+              State
+            </TabButton>
           </menu>
-          <div id='tab-content'>
-            <h3>{EXAMPLES[selectedTopic].title}</h3>
-            <p>{EXAMPLES[selectedTopic].description}</p>
-            <pre>
-              <code>
-                {EXAMPLES[selectedTopic].code}
-              </code>
-            </pre>
-          </div>
+          {tabContent}
         </section>
       </main>
     </div>
