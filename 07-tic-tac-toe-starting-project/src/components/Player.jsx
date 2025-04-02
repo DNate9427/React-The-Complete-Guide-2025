@@ -8,7 +8,6 @@ export default function Player({ name, symbol }) {
         setIsEditing(!isEditing);
     }
 
-
     let buttonText = "Edit";
     let playerNameRow = "";
 
