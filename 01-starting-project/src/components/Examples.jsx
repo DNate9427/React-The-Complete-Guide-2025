@@ -31,36 +31,36 @@ export default function Examples() {
 
     return (
         <Section title="Examples" id="examples">
-            {/* This wrapper component uses a fragment to slot JSX in.
-            This pattern keeps the wrapper flexible. */}
-            <Tabs buttons={
-                <>
-                    <TabButton
-                        isSelected={selectedTopic === 'components'}
-                        onClick={() => handleSelect('components')}
-                    >
-                        Components
-                    </TabButton>
-                    <TabButton
-                        isSelected={selectedTopic === 'jsx'}
-                        onClick={() => handleSelect('jsx')}
-                    >
-                        JSX
-                    </TabButton>
-                    <TabButton
-                        isSelected={selectedTopic === 'props'}
-                        onClick={() => handleSelect('props')}
-                    >
-                        Props
-                    </TabButton>
-                    <TabButton
-                        isSelected={selectedTopic === 'state'}
-                        onClick={() => handleSelect('state')}
-                    >
-                        State
-                    </TabButton>
-                </>
-            }>
+            <Tabs
+                ButtonsContainer="menu" // A custom component must be passed as a dynamic value - "{name}"
+                buttons={
+                    <>
+                        <TabButton
+                            isSelected={selectedTopic === 'components'}
+                            onClick={() => handleSelect('components')}
+                        >
+                            Components
+                        </TabButton>
+                        <TabButton
+                            isSelected={selectedTopic === 'jsx'}
+                            onClick={() => handleSelect('jsx')}
+                        >
+                            JSX
+                        </TabButton>
+                        <TabButton
+                            isSelected={selectedTopic === 'props'}
+                            onClick={() => handleSelect('props')}
+                        >
+                            Props
+                        </TabButton>
+                        <TabButton
+                            isSelected={selectedTopic === 'state'}
+                            onClick={() => handleSelect('state')}
+                        >
+                            State
+                        </TabButton>
+                    </>
+                }>
                 {tabContent}
             </Tabs>
         </Section>);
