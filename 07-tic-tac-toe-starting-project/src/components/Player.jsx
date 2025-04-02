@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-export default function Player({ name, symbol }) {
+export default function Player({ initialName, symbol }) {
+    const [playerName, setPlayerName] = useState(initialName);
     const [isEditing, setIsEditing] = useState(false);
-    
 
     function handleEditClick() {
         // If your new state depends on your previous state value,
-        // you should NOT update the state with the prior state's value
+        // you should NOT update the state with the prior state's value - setIsEditing((!isEditing);
 
         // Instead, pass a function to your state updating function.
         // This function will automatically be called by React and 
@@ -17,6 +17,10 @@ export default function Player({ name, symbol }) {
         setIsEditing((editing) => !editing);
     }
 
+    function handleChange(event) {
+        setPlayerName(event.target.value);
+    }
+
     let buttonText = "Edit";
     let playerNameRow = "";
 
@@ -25,8 +29,9 @@ export default function Player({ name, symbol }) {
         : buttonText = "Edit";
 
     isEditing
-        ? playerNameRow = <input type="text" required value={name}/>
-        : playerNameRow = <span className="player-name">{name}</span>;
+        // Two-Way Binding: Getting a value out and putting it back in.
+        ? playerNameRow = <input type="text" required value={playerName} onChange={handleChange} />
+        : playerNameRow = <span className="player-name">{playerName}</span>;
 
     return (
         <li>
